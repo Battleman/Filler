@@ -11,10 +11,8 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = {UserMapper.class})
 public interface CustomEventMapper extends EntityMapper<CustomEventDTO, CustomEvent> {
 
-    @Mapping(source = "user.id", target = "userId")
-    CustomEventDTO toDto(CustomEvent customEvent);
 
-    @Mapping(source = "userId", target = "user")
+    @Mapping(target = "removeUser", ignore = true)
     @Mapping(target = "preferences", ignore = true)
     @Mapping(target = "removePreference", ignore = true)
     CustomEvent toEntity(CustomEventDTO customEventDTO);

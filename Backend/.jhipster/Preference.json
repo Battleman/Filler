@@ -8,27 +8,31 @@
     ],
     "relationships": [
         {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "customEvent",
+            "relationshipType": "one-to-one",
+            "otherEntityName": "preferenceCategory",
             "otherEntityRelationshipName": "preference",
-            "relationshipName": "customEvent",
-            "otherEntityField": "id"
+            "relationshipName": "preferenceCategory",
+            "otherEntityField": "id",
+            "ownerSide": true
         },
         {
-            "relationshipType": "many-to-one",
+            "relationshipType": "many-to-many",
             "otherEntityName": "user",
             "otherEntityRelationshipName": "preference",
             "relationshipName": "user",
-            "otherEntityField": "id"
+            "otherEntityField": "id",
+            "ownerSide": true
         },
         {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "preferenceCategory",
+            "relationshipType": "many-to-many",
+            "otherEntityName": "customEvent",
             "otherEntityRelationshipName": "preference",
-            "relationshipName": "preferenceCategory"
+            "relationshipName": "customEvent",
+            "otherEntityField": "id",
+            "ownerSide": true
         }
     ],
-    "changelogDate": "20191012132319",
+    "changelogDate": "20191012211231",
     "entityTableName": "preference",
     "dto": "mapstruct",
     "pagination": "pagination",

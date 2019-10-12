@@ -13,9 +13,6 @@ import java.util.List;
 @Repository
 public interface CustomEventRepository extends JpaRepository<CustomEvent, Long> {
 
-    @Query("select customEvent from CustomEvent customEvent where customEvent.user.login = ?#{principal.username}")
-    List<CustomEvent> findByUserIsCurrentUser();
-
     List<CustomEvent> findAllByStartDateLessThanAndEndDateGreaterThan(ZonedDateTime startDate, ZonedDateTime endDate);
 
 }

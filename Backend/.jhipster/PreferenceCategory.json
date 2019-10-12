@@ -8,14 +8,14 @@
     ],
     "relationships": [
         {
-            "relationshipType": "many-to-one",
+            "relationshipType": "one-to-one",
             "otherEntityName": "preference",
             "otherEntityRelationshipName": "preferenceCategory",
             "relationshipName": "preference",
-            "otherEntityField": "id"
+            "ownerSide": false
         }
     ],
-    "changelogDate": "20191012144900",
+    "changelogDate": "20191012211232",
     "entityTableName": "preference_category",
     "dto": "mapstruct",
     "pagination": "pagination",

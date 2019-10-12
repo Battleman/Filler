@@ -1,6 +1,8 @@
 package bcn.hackupc.filler.service.dto;
 import java.time.ZonedDateTime;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -29,7 +31,7 @@ public class CustomEventDTO implements Serializable {
     private Boolean repeat;
 
 
-    private Long userId;
+    private Set<UserDTO> users = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -111,12 +113,12 @@ public class CustomEventDTO implements Serializable {
         this.repeat = repeat;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Set<UserDTO> getUsers() {
+        return users;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUsers(Set<UserDTO> users) {
+        this.users = users;
     }
 
     @Override
@@ -153,7 +155,6 @@ public class CustomEventDTO implements Serializable {
             ", endDate='" + getEndDate() + "'" +
             ", description='" + getDescription() + "'" +
             ", repeat='" + isRepeat() + "'" +
-            ", user=" + getUserId() +
             "}";
     }
 }

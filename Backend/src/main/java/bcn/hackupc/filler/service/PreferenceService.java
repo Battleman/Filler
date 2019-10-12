@@ -28,7 +28,13 @@ public interface PreferenceService {
      */
     Page<PreferenceDTO> findAll(Pageable pageable);
 
-
+    /**
+     * Get all the preferences with eager load of many-to-many relationships.
+     *
+     * @return the list of entities.
+     */
+    Page<PreferenceDTO> findAllWithEagerRelationships(Pageable pageable);
+    
     /**
      * Get the "id" preference.
      *

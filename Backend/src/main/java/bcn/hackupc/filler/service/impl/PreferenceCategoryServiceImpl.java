@@ -13,7 +13,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * Service Implementation for managing {@link PreferenceCategory}.
@@ -61,6 +65,21 @@ public class PreferenceCategoryServiceImpl implements PreferenceCategoryService 
             .map(preferenceCategoryMapper::toDto);
     }
 
+
+
+    /**
+    *  Get all the preferenceCategories where Preference is {@code null}.
+     *  @return the list of entities.
+     */
+    @Transactional(readOnly = true) 
+    public List<PreferenceCategoryDTO> findAllWherePreferenceIsNull() {
+        log.debug("Request to get all preferenceCategories where Preference is null");
+        return StreamSupport
+            .stream(preferenceCategoryRepository.findAll().spliterator(), false)
+            .filter(preferenceCategory -> preferenceCategory.getPreference() == null)
+            .map(preferenceCategoryMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
+    }
 
     /**
      * Get one preferenceCategory by id.

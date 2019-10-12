@@ -12,8 +12,6 @@ public class PreferenceCategoryDTO implements Serializable {
     private String name;
 
 
-    private Long preferenceId;
-
     public Long getId() {
         return id;
     }
@@ -28,14 +26,6 @@ public class PreferenceCategoryDTO implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Long getPreferenceId() {
-        return preferenceId;
-    }
-
-    public void setPreferenceId(Long preferenceId) {
-        this.preferenceId = preferenceId;
     }
 
     @Override
@@ -64,7 +54,6 @@ public class PreferenceCategoryDTO implements Serializable {
         return "PreferenceCategoryDTO{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
-            ", preference=" + getPreferenceId() +
             "}";
     }
 }

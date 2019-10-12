@@ -18,14 +18,15 @@ entity PreferenceCategory{
 	name String
 }
 
-
-
 // defining multiple OneToMany relationships with comments
-relationship ManyToOne {
+
+relationship OneToOne {
+	Preference to PreferenceCategory
+}
+relationship ManyToMany {
+	Preference to User
+	Preference to CustomEvent
 	CustomEvent to User
-    Preference to CustomEvent
-    Preference to User
-    PreferenceCategory to Preference
 }
 
 paginate * with pagination
