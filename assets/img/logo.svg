@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1024px" height="1024px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>student schedule</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="940" height="940" rx="149"></rect>
+        <rect id="path-3" x="0" y="-18" width="940" height="940" rx="149"></rect>
+    </defs>
+    <g id="student-schedule" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Rectangle" transform="translate(42.000000, 60.000000)">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <use id="Mask" fill="#8D8D8D" xlink:href="#path-1"></use>
+            <mask id="mask-4" fill="white">
+                <use xlink:href="#path-3"></use>
+            </mask>
+            <use id="Mask" fill="#007BC1" xlink:href="#path-3"></use>
+            <rect stroke="#979797" fill="#F5F5F5" mask="url(#mask-4)" x="-9" y="201" width="958" height="721"></rect>
+            <path d="M233.5,201.432099 L233.5,970.567901" id="Line" stroke="#D8D8D8" stroke-width="20" mask="url(#mask-4)"></path>
+            <path d="M470.5,201.432099 L470.5,970.567901" id="Line-Copy" stroke="#D8D8D8" stroke-width="20" mask="url(#mask-4)"></path>
+            <path d="M706.5,201.432099 L706.5,970.567901" id="Line-Copy-2" stroke="#D8D8D8" stroke-width="20" mask="url(#mask-4)"></path>
+            <g id="Group" mask="url(#mask-4)" stroke="#D8D8D8" stroke-width="20">
+                <g transform="translate(470.500000, 544.500000) rotate(90.000000) translate(-470.500000, -544.500000) translate(351.000000, 66.000000)">
+                    <path d="M0.919230769,0.537037037 L0.919230769,956.462963" id="Line"></path>
+                    <path d="M238.080769,0.537037037 L238.080769,956.462963" id="Line-Copy"></path>
+                </g>
+            </g>
+        </g>
+        <g id="Group-2" transform="translate(252.000000, 0.000000)" fill="#F5F5F5" stroke="#979797">
+            <rect id="Rectangle" x="0" y="0" width="65" height="153" rx="32.5"></rect>
+            <rect id="Rectangle-Copy" x="455" y="0" width="65" height="153" rx="32.5"></rect>
+        </g>
+        <text id="🏫" font-family="AppleColorEmoji, Apple Color Emoji" font-size="180" font-weight="normal" fill="#000000">
+            <tspan x="64" y="443">🏫</tspan>
+        </text>
+        <text id="🎉" font-family="AppleColorEmoji, Apple Color Emoji" font-size="180" font-weight="normal" fill="#000000">
+            <tspan x="319" y="680">🎉</tspan>
+        </text>
+        <text id="✏️" font-family="AppleColorEmoji, Apple Color Emoji" font-size="180" font-weight="normal" fill="#000000">
+            <tspan x="793" y="680">✏️</tspan>
+        </text>
+        <text id="🎸" font-family="AppleColorEmoji, Apple Color Emoji" font-size="180" font-weight="normal" fill="#000000">
+            <tspan x="545" y="925">🎸</tspan>
+        </text>
+    </g>
+</svg>
