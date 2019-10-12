@@ -1,0 +1,28 @@
+{
+    "name": "PreferenceCategory",
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "preference",
+            "otherEntityRelationshipName": "preferenceCategory",
+            "relationshipName": "preference",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20191012144900",
+    "entityTableName": "preference_category",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

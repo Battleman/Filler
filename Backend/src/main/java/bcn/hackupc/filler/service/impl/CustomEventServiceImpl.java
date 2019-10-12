@@ -13,7 +13,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Service Implementation for managing {@link CustomEvent}.
@@ -85,5 +88,11 @@ public class CustomEventServiceImpl implements CustomEventService {
     public void delete(Long id) {
         log.debug("Request to delete CustomEvent : {}", id);
         customEventRepository.deleteById(id);
+    }
+
+    @Override
+    public List<CustomEventDTO> findAllBetwwen(ZonedDateTime startDate, ZonedDateTime endDate) {
+        return customEventRepository.findAllByStartDateLessThanAndEndDateGreaterThan(startDate, endDate).stream()
+            .map(customEventMapper::toDto).collect(Collectors.toList());
     }
 }

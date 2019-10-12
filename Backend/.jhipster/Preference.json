@@ -20,6 +20,12 @@
             "otherEntityRelationshipName": "preference",
             "relationshipName": "user",
             "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "preferenceCategory",
+            "otherEntityRelationshipName": "preference",
+            "relationshipName": "preferenceCategory"
         }
     ],
     "changelogDate": "20191012132319",

@@ -1,10 +1,12 @@
 package bcn.hackupc.filler.web.rest;
 
+import bcn.hackupc.filler.config.Constants;
 import bcn.hackupc.filler.service.CustomEventService;
 import bcn.hackupc.filler.web.rest.errors.BadRequestAlertException;
 import bcn.hackupc.filler.service.dto.CustomEventDTO;
 
 import bcn.hackupc.filler.web.rest.request.CustomEventRequest;
+import bcn.hackupc.filler.web.rest.request.Schedule;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -22,6 +24,10 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -101,9 +107,30 @@ public class CustomEventResource {
 //        return ResponseEntity.ok().headers(headers).body(page.getContent());
 //    }
 
-    @GetMapping("/custom-events")
+    @PostMapping("/create-custom-events")
     public ResponseEntity<List<CustomEventDTO>> getAllCustomEvents(@RequestBody CustomEventRequest customEventRequest) {
-        return ResponseEntity.ok().build();
+
+        ZonedDateTime startDate = ZonedDateTime.of(customEventRequest.getStartDate(), ZoneId.systemDefault());
+        ZonedDateTime endDate = ZonedDateTime.of(customEventRequest.getEndDate(), ZoneId.systemDefault());
+
+        List<CustomEventDTO> customEventDTOS = customEventService.findAllBetwwen(startDate,endDate);
+
+        for (int i = 0; i < customEventDTOS.size(); i++) {
+            CustomEventDTO ce = customEventDTOS.get(i);
+            for (int j = 0; j < customEventRequest.getSchedule().size(); j++) {
+                Schedule schedule = customEventRequest.getSchedule().get(j);
+                if(ce.getStartDate().isBefore(ZonedDateTime.of(schedule.getEnd(), ZoneId.systemDefault())) ||
+                    ce.getStartDate().isAfter(ZonedDateTime.of(schedule.getStart(), ZoneId.systemDefault())) ||
+                ce.getEndDate().isAfter(ZonedDateTime.of(schedule.getStart(), ZoneId.systemDefault())))
+                {
+                    customEventDTOS.remove(i);
+                    i--;
+                }
+
+            }
+        }
+
+        return ResponseEntity.ok(customEventDTOS);
     }
 
     /**
