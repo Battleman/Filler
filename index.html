@@ -32,15 +32,19 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- CSS Files -->
   <link href="./assets/css/material-kit.css?v=2.0.6" rel="stylesheet" />
-  <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="./assets/css/timetablejs.css" rel="stylesheet" />
   <script src="./assets/js/timetable.js"></script>
   <link href='./assets/fullcalendar/core/main.css' rel='stylesheet' />
   <link href='./assets/fullcalendar/daygrid/main.css' rel='stylesheet' />
   <link href='./assets/fullcalendar/list/main.css' rel='stylesheet' />
+  <link href='./assets/fullcalendar/timegrid/main.min.css' rel='stylesheet' />
+  <link href='./assets/css/main.css' rel='stylesheet' />
+
+  <!-- JS files -->
   <script src='./assets/fullcalendar/core/main.js'></script>
   <script src='./assets/fullcalendar/interaction/main.js'></script>
   <script src='./assets/fullcalendar/daygrid/main.js'></script>
+  <script src='./assets/fullcalendar/timegrid/main.min.js'></script>
   <script src='./assets/fullcalendar/list/main.js'></script>
   <script src='./assets/fullcalendar/google-calendar/main.js'></script>
 </head>
@@ -123,46 +127,40 @@
           </div>
         </div>
         <div class="tab-content tab-space">
+          <div id="list1" class="dropdown-check-list" tabindex="100" onclick="dropdown('list1')">
+            <span class="anchor">Music</span>
+            <ul id="items" class="items">
+              <li><label><input type="checkbox" value="music:rock" /> Rock </label></li>
+              <li><label><input type="checkbox" value="music:metal" /> Metal </label></li>
+              <li><label><input type="checkbox" value="music:jazz" /> Jazz</label></li>
+              <li><label><input type="checkbox" value="music:pop" /> Pop </label> </li>
+              <li><label><input type="checkbox" value="music:electro" /> Electro </label> </li>
+              <li><label><input type="checkbox" value="music:rap" /> Rap </label></li>
+            </ul>
+          </div>
+          <div id="list2" class="dropdown-check-list" tabindex="100" onclick="dropdown('list2')">
+            <span class="anchor">Art</span>
+            <ul class="items">
+              <li><label><input type="checkbox" value="art:contemporary" /> Contemporary </label></li>
+              <li><label><input type="checkbox" value="art:modern" /> Modern </label></li>
+              <li><label><input type="checkbox" value="art:abstract" /> Abstract</label></li>
+              <li><label><input type="checkbox" value="art:renaissance" /> Renaissance </label> </li>
+            </ul>
+          </div>
+          <div id="list3" class="dropdown-check-list" tabindex="100" onclick="dropdown('list3')">
+            <span class="anchor">Conferences</span>
+            <ul class="items">
+              <li><label><input type="checkbox" value="conference:ai" /> Artificial Intelligence </label></li>
+              <li><label><input type="checkbox" value="conference:blockchain" /> Blockchain </label></li>
+              <li><label><input type="checkbox" value="conference:climate" /> Climate</label></li>
+              <li><label><input type="checkbox" value="conference:architecture" /> Architecture </label> </li>
+              <li><label><input type="checkbox" value="conference:microbiology" /> Microbiology </label> </li>
+              <li><label><input type="checkbox" value="conference:database" /> Database </label></li>
+            </ul>
+          </div>
+          <button onclick="newEvent()">This nice button</button>
           <div id='calendar'></div>
         </div>
-        <!-- <div class="tab-pane active text-center gallery" id="studio">
-            <div class="row">
-              <div class="col-md-3 ml-auto">
-                <img src="./assets/img/examples/studio-1.jpg" class="rounded">
-                <img src="./assets/img/examples/studio-2.jpg" class="rounded">
-              </div>
-              <div class="col-md-3 mr-auto">
-                <img src="./assets/img/examples/studio-5.jpg" class="rounded">
-                <img src="./assets/img/examples/studio-4.jpg" class="rounded">
-              </div>
-            </div>
-          </div>
-          <div class="tab-pane text-center gallery" id="works">
-            <div class="row">
-              <div class="col-md-3 ml-auto">
-                <img src="./assets/img/examples/olu-eletu.jpg" class="rounded">
-                <img src="./assets/img/examples/clem-onojeghuo.jpg" class="rounded">
-                <img src="./assets/img/examples/cynthia-del-rio.jpg" class="rounded">
-              </div>
-              <div class="col-md-3 mr-auto">
-                <img src="./assets/img/examples/mariya-georgieva.jpg" class="rounded">
-                <img src="./assets/img/examples/clem-onojegaw.jpg" class="rounded">
-              </div>
-            </div>
-          </div>
-          <div class="tab-pane text-center gallery" id="favorite">
-            <div class="row">
-              <div class="col-md-3 ml-auto">
-                <img src="./assets/img/examples/mariya-georgieva.jpg" class="rounded">
-                <img src="./assets/img/examples/studio-3.jpg" class="rounded">
-              </div>
-              <div class="col-md-3 mr-auto">
-                <img src="./assets/img/examples/clem-onojeghuo.jpg" class="rounded">
-                <img src="./assets/img/examples/olu-eletu.jpg" class="rounded">
-                <img src="./assets/img/examples/studio-1.jpg" class="rounded">
-              </div>
-            </div>
-          </div> -->
       </div>
     </div>
   </div>
@@ -213,78 +211,77 @@
   <script src="./assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
   <!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
   <script src="./assets/js/material-kit.js?v=2.0.6" type="text/javascript"></script>
-
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      var calendarEl = document.getElementById('calendar');
+    var calendarEl = document.getElementById('calendar');
 
-      var calendar = new FullCalendar.Calendar(calendarEl, {
-        plugins: ['interaction', 'dayGrid', 'timeGrid', 'list'],
-        header: {
-          left: 'prev,next today',
-          center: 'title',
-          right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
-        },
-        defaultDate: '2019-08-12',
-        navLinks: true, // can click day/week names to navigate views
-        businessHours: true, // display business hours
-        editable: true,
-        events: [{
-            title: 'Business Lunch',
-            start: '2019-08-03T13:00:00',
-            constraint: 'businessHours'
-          },
-          {
-            title: 'Meeting',
-            start: '2019-08-13T11:00:00',
-            constraint: 'availableForMeeting', // defined below
-            color: '#257e4a'
-          },
-          {
-            title: 'Conference',
-            start: '2019-08-18',
-            end: '2019-08-20'
-          },
-          {
-            title: 'Party',
-            start: '2019-08-29T20:00:00'
-          },
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      plugins: ['interaction', 'dayGrid', 'timeGrid', 'list', 'googleCalendar'],
+      header: {
+        left: 'prev,next today',
+        center: 'title,addEventButton',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+      },
+      googleCalendarApiKey: "AIzaSyC2y8YnKmvtdaYzRJCCnU7i8BaejiWFhdg",
+      customButtons: {
+        addEventButton: {
+          text: 'add event...',
+          click: function () {
+            var dateStr = prompt('Enter a date in YYYY-MM-DD format');
+            var date = new Date(dateStr + 'T00:00:00'); // will be in local time
 
-          // areas where "Meeting" must be dropped
-          {
-            groupId: 'availableForMeeting',
-            start: '2019-08-11T10:00:00',
-            end: '2019-08-11T16:00:00',
-            rendering: 'background'
-          },
-          {
-            groupId: 'availableForMeeting',
-            start: '2019-08-13T10:00:00',
-            end: '2019-08-13T16:00:00',
-            rendering: 'background'
-          },
-
-          // red areas where no events can be dropped
-          {
-            start: '2019-08-24',
-            end: '2019-08-28',
-            overlap: false,
-            rendering: 'background',
-            color: '#ff9f89'
-          },
-          {
-            start: '2019-08-06',
-            end: '2019-08-08',
-            overlap: false,
-            rendering: 'background',
-            color: '#ff9f89'
+            if (!isNaN(date.valueOf())) { // valid?
+              calendar.addEvent({
+                title: 'dynamic event',
+                start: date,
+                allDay: true
+              });
+              alert('Great. Now, update your database...');
+            } else {
+              alert('Invalid date.');
+            }
           }
-        ]
-      });
-
-      calendar.render();
+        }
+      },
+      defaultDate: new Date(),
+      navLinks: true, // can click day/week names to navigate views
+      businessHours: true, // display business hours
+      editable: true,
+      events: "k2joi0hlfr9ijj07u6n6lru1gc@group.calendar.google.com",
     });
+    calendar.render();
+
+    function newEvent() {
+      var preferences = [];
+      $('.items input:checked').each(function () {
+        preferences.push($(this).attr('value'));
+      });
+      var current_events = [];
+      console.log(calendar.getEvents())
+      calendar.getEvents().forEach(function(ev){
+        current_events.push({name: ev.title, start: ev.start, end: ev.end})
+      })
+      console.log(current_events)
+    }
   </script>
+  <script type="text/javascript">
+    function dropdown(id) {
+      var checkList = document.getElementById(id);
+      var items = checkList.getElementsByClassName('items')[0];
+      if (items.classList.contains('visible')) {
+        items.classList.remove('visible');
+        items.style.display = "none";
+      } else {
+        items.classList.add('visible');
+        items.style.display = "block";
+      }
+
+
+      items.onblur = function (evt) {
+        items.classList.remove('visible');
+      }
+    }
+  </script>
+
 </body>
 
 </html>

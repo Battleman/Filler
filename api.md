@@ -5,6 +5,10 @@
     preferences: [
         "music:rock", "music:jazz", "art:renaissance", "conference:ai", ...
     ],
+    period: {
+        startDate: "2019-09-29T00:00:00",
+        startDate: "2019-11-09T23:59:59"
+    }
     schedule: [
         {
             start: "2019-10-12T15:05:12",
