@@ -1,0 +1,35 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "bcn.hackupc.filler"
+    },
+    "jhipsterVersion": "6.2.0",
+    "applicationType": "monolith",
+    "baseName": "Backend",
+    "packageName": "bcn.hackupc.filler",
+    "packageFolder": "bcn/hackupc/filler",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": true,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "h2Disk",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": "eureka",
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "ZDg4YmY1OGMzYjdkMTU1NTQ1MjAyNTk2OTJmNWM1ZDhkM2RmNTcyZGM2OTE2ZmNhYzg1OWFmOWMyYTQ4NzMwZDU0MDJkN2UxM2ViNjAxMTgzNDUxNGUwNzExMmEwNmYwOTFmMGQ5ZTE1NjcyZmE1Zjg4NGU3YWNiZjE3NTdiYzI=",
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": false,
+    "clientPackageManager": "npm",
+    "blueprints": [],
+    "skipClient": true
+  }
+}
