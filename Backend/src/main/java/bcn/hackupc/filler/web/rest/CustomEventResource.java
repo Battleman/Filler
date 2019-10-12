@@ -4,6 +4,7 @@ import bcn.hackupc.filler.service.CustomEventService;
 import bcn.hackupc.filler.web.rest.errors.BadRequestAlertException;
 import bcn.hackupc.filler.service.dto.CustomEventDTO;
 
+import bcn.hackupc.filler.web.rest.request.CustomEventRequest;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -84,20 +85,25 @@ public class CustomEventResource {
             .body(result);
     }
 
-    /**
-     * {@code GET  /custom-events} : get all the customEvents.
-     *
+//    /**
+//     * {@code GET  /custom-events} : get all the customEvents.
+//     *
+//
+//     * @param pageable the pagination information.
+//
+//     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of customEvents in body.
+//     */
+//    @GetMapping("/custom-events")
+//    public ResponseEntity<List<CustomEventDTO>> getAllCustomEvents(Pageable pageable) {
+//        log.debug("REST request to get a page of CustomEvents");
+//        Page<CustomEventDTO> page = customEventService.findAll(pageable);
+//        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+//        return ResponseEntity.ok().headers(headers).body(page.getContent());
+//    }
 
-     * @param pageable the pagination information.
-
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of customEvents in body.
-     */
     @GetMapping("/custom-events")
-    public ResponseEntity<List<CustomEventDTO>> getAllCustomEvents(Pageable pageable) {
-        log.debug("REST request to get a page of CustomEvents");
-        Page<CustomEventDTO> page = customEventService.findAll(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    public ResponseEntity<List<CustomEventDTO>> getAllCustomEvents(@RequestBody CustomEventRequest customEventRequest) {
+        return ResponseEntity.ok().build();
     }
 
     /**
