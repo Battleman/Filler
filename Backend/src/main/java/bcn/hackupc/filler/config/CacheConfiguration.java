@@ -53,6 +53,7 @@ public class CacheConfiguration {
             createCache(cm, bcn.hackupc.filler.domain.Preference.class.getName() + ".users");
             createCache(cm, bcn.hackupc.filler.domain.Preference.class.getName() + ".customEvents");
             createCache(cm, bcn.hackupc.filler.domain.CustomEvent.class.getName() + ".users");
+            createCache(cm, bcn.hackupc.filler.domain.PreferenceCategory.class.getName() + ".preferences");
             // jhipster-needle-ehcache-add-entry
         };
     }

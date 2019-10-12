@@ -8,11 +8,10 @@
     ],
     "relationships": [
         {
-            "relationshipType": "one-to-one",
+            "relationshipType": "one-to-many",
             "otherEntityName": "preference",
             "otherEntityRelationshipName": "preferenceCategory",
-            "relationshipName": "preference",
-            "ownerSide": false
+            "relationshipName": "preference"
         }
     ],
     "changelogDate": "20191012211232",

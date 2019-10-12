@@ -20,7 +20,7 @@ entity PreferenceCategory{
 
 // defining multiple OneToMany relationships with comments
 
-relationship OneToOne {
+relationship ManyToOne {
 	Preference to PreferenceCategory
 }
 relationship ManyToMany {

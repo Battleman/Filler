@@ -1,4 +1,5 @@
 package bcn.hackupc.filler.domain;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -26,8 +27,8 @@ public class Preference implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @OneToOne
-    @JoinColumn(unique = true)
+    @ManyToOne
+    @JsonIgnoreProperties("preferences")
     private PreferenceCategory preferenceCategory;
 
     @ManyToMany

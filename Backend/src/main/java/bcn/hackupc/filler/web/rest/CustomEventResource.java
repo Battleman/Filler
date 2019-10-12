@@ -1,7 +1,9 @@
 package bcn.hackupc.filler.web.rest;
 
 import bcn.hackupc.filler.config.Constants;
+import bcn.hackupc.filler.domain.PreferenceCategory;
 import bcn.hackupc.filler.service.CustomEventService;
+import bcn.hackupc.filler.service.dto.PreferenceDTO;
 import bcn.hackupc.filler.web.rest.errors.BadRequestAlertException;
 import bcn.hackupc.filler.service.dto.CustomEventDTO;
 
@@ -21,6 +23,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
 import java.net.URI;
 import java.net.URISyntaxException;
 

@@ -1,9 +1,11 @@
 package bcn.hackupc.filler.service.impl;
 
+import bcn.hackupc.filler.domain.Preference;
 import bcn.hackupc.filler.service.PreferenceCategoryService;
 import bcn.hackupc.filler.domain.PreferenceCategory;
 import bcn.hackupc.filler.repository.PreferenceCategoryRepository;
 import bcn.hackupc.filler.service.dto.PreferenceCategoryDTO;
+import bcn.hackupc.filler.service.dto.PreferenceDTO;
 import bcn.hackupc.filler.service.mapper.PreferenceCategoryMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -65,22 +68,6 @@ public class PreferenceCategoryServiceImpl implements PreferenceCategoryService 
             .map(preferenceCategoryMapper::toDto);
     }
 
-
-
-    /**
-    *  Get all the preferenceCategories where Preference is {@code null}.
-     *  @return the list of entities.
-     */
-    @Transactional(readOnly = true) 
-    public List<PreferenceCategoryDTO> findAllWherePreferenceIsNull() {
-        log.debug("Request to get all preferenceCategories where Preference is null");
-        return StreamSupport
-            .stream(preferenceCategoryRepository.findAll().spliterator(), false)
-            .filter(preferenceCategory -> preferenceCategory.getPreference() == null)
-            .map(preferenceCategoryMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
-    }
-
     /**
      * Get one preferenceCategory by id.
      *
@@ -105,4 +92,6 @@ public class PreferenceCategoryServiceImpl implements PreferenceCategoryService 
         log.debug("Request to delete PreferenceCategory : {}", id);
         preferenceCategoryRepository.deleteById(id);
     }
+
+
 }
