@@ -6,6 +6,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A Preference.
@@ -32,6 +34,10 @@ public class Preference implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties("preferences")
     private User user;
+
+    @OneToMany(mappedBy = "preference")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<PreferenceCategory> preferenceCategories = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -79,6 +85,31 @@ public class Preference implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Set<PreferenceCategory> getPreferenceCategories() {
+        return preferenceCategories;
+    }
+
+    public Preference preferenceCategories(Set<PreferenceCategory> preferenceCategories) {
+        this.preferenceCategories = preferenceCategories;
+        return this;
+    }
+
+    public Preference addPreferenceCategory(PreferenceCategory preferenceCategory) {
+        this.preferenceCategories.add(preferenceCategory);
+        preferenceCategory.setPreference(this);
+        return this;
+    }
+
+    public Preference removePreferenceCategory(PreferenceCategory preferenceCategory) {
+        this.preferenceCategories.remove(preferenceCategory);
+        preferenceCategory.setPreference(null);
+        return this;
+    }
+
+    public void setPreferenceCategories(Set<PreferenceCategory> preferenceCategories) {
+        this.preferenceCategories = preferenceCategories;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

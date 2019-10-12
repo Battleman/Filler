@@ -14,6 +14,10 @@ entity Preference{
 	name String
 }
 
+entity PreferenceCategory{
+	name String
+}
+
 
 
 // defining multiple OneToMany relationships with comments
@@ -21,6 +25,7 @@ relationship ManyToOne {
 	CustomEvent to User
     Preference to CustomEvent
     Preference to User
+    PreferenceCategory to Preference
 }
 
 paginate * with pagination
@@ -28,4 +33,3 @@ paginate * with pagination
 dto * with mapstruct
 
 service all with serviceImpl
-

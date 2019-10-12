@@ -5,6 +5,8 @@ import bcn.hackupc.filler.service.dto.CustomEventDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -43,4 +45,6 @@ public interface CustomEventService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    List<CustomEventDTO> findAllBetwwen(ZonedDateTime startDate, ZonedDateTime endDate);
 }

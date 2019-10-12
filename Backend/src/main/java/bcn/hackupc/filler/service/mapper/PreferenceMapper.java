@@ -17,6 +17,8 @@ public interface PreferenceMapper extends EntityMapper<PreferenceDTO, Preference
 
     @Mapping(source = "customEventId", target = "customEvent")
     @Mapping(source = "userId", target = "user")
+    @Mapping(target = "preferenceCategories", ignore = true)
+    @Mapping(target = "removePreferenceCategory", ignore = true)
     Preference toEntity(PreferenceDTO preferenceDTO);
 
     default Preference fromId(Long id) {
