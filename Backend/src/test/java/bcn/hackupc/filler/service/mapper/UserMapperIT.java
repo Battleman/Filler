@@ -1,6 +1,5 @@
 package bcn.hackupc.filler.service.mapper;
 
-
 import bcn.hackupc.filler.BackendApp;
 import bcn.hackupc.filler.domain.User;
 import bcn.hackupc.filler.service.dto.UserDTO;

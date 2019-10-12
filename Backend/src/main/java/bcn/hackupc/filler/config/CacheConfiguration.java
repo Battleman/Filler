@@ -23,8 +23,7 @@ public class CacheConfiguration {
     private final javax.cache.configuration.Configuration<Object, Object> jcacheConfiguration;
 
     public CacheConfiguration(JHipsterProperties jHipsterProperties) {
-        JHipsterProperties.Cache.Ehcache ehcache =
-            jHipsterProperties.getCache().getEhcache();
+        JHipsterProperties.Cache.Ehcache ehcache = jHipsterProperties.getCache().getEhcache();
 
         jcacheConfiguration = Eh107Configuration.fromEhcacheCacheConfiguration(
             CacheConfigurationBuilder.newCacheConfigurationBuilder(Object.class, Object.class,
@@ -46,6 +45,9 @@ public class CacheConfiguration {
             createCache(cm, bcn.hackupc.filler.domain.User.class.getName());
             createCache(cm, bcn.hackupc.filler.domain.Authority.class.getName());
             createCache(cm, bcn.hackupc.filler.domain.User.class.getName() + ".authorities");
+            createCache(cm, bcn.hackupc.filler.domain.CustomEvent.class.getName());
+            createCache(cm, bcn.hackupc.filler.domain.CustomEvent.class.getName() + ".preferences");
+            createCache(cm, bcn.hackupc.filler.domain.Preference.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }
@@ -57,4 +59,5 @@ public class CacheConfiguration {
         }
         cm.createCache(cacheName, jcacheConfiguration);
     }
+
 }

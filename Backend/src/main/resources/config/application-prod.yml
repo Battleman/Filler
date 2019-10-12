@@ -16,8 +16,8 @@
 logging:
   level:
     ROOT: INFO
-    bcn.hackupc.filler: INFO
     io.github.jhipster: INFO
+    bcn.hackupc.filler: INFO
 
 eureka:
   instance:
@@ -96,7 +96,7 @@ spring:
 #        ciphers: TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 ,TLS_DHE_RSA_WITH_AES_128_GCM_SHA256 ,TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 ,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384,TLS_DHE_RSA_WITH_AES_128_CBC_SHA256,TLS_DHE_RSA_WITH_AES_128_CBC_SHA,TLS_DHE_RSA_WITH_AES_256_CBC_SHA256,TLS_DHE_RSA_WITH_AES_256_CBC_SHA,TLS_RSA_WITH_AES_128_GCM_SHA256,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_CBC_SHA256,TLS_RSA_WITH_AES_256_CBC_SHA256,TLS_RSA_WITH_AES_128_CBC_SHA,TLS_RSA_WITH_AES_256_CBC_SHA,TLS_DHE_RSA_WITH_CAMELLIA_256_CBC_SHA,TLS_RSA_WITH_CAMELLIA_256_CBC_SHA,TLS_DHE_RSA_WITH_CAMELLIA_128_CBC_SHA,TLS_RSA_WITH_CAMELLIA_128_CBC_SHA
 # ===================================================================
 server:
-  port: 8080
+  port: 8085
   compression:
     enabled: true
     mime-types: text/html,text/xml,text/plain,text/css, application/javascript, application/json
@@ -124,7 +124,7 @@ jhipster:
         # - In the JHipster Registry (which includes a Spring Cloud Config server)
         # - In a separate `application-prod.yml` file, in the same folder as your executable JAR file
         # - In the `JHIPSTER_SECURITY_AUTHENTICATION_JWT_BASE64_SECRET` environment variable
-        base64-secret: MmVmYTJhMTliYmZkMmY5Yzk4OTY0YTMzZWZkZWU1YTNlMThhNDVlMTZiNjExMDBmMzk5NDU2YjA3M2NhMDA3ZjZjM2RmMzA2NWVjNGE2OTRmZGNmMjRiNzYxYjQzM2U4NjZkYjBkN2VkNzAwMzU2MDljOGQyNWVmNGVlOGQ0YjI=
+        base64-secret: OWYwNDA1NjVmNTU1OWJlNzE1NGI0MWE5YjU1NDI4MWE2NzdhYmQ4MjI4ZDhmMDM2NjdlNTc4MjNiOTYwMjZhMTRmNWVkN2FmMjVkNjBmZWI0MzgzMjkwODNiNWU4N2UyZWU1YjI2ZTlmY2Q0YWI2YWU3MTY2ODFlZDRjYTUzODc=
         # Token is valid 24 hours
         token-validity-in-seconds: 86400
         token-validity-in-seconds-for-remember-me: 2592000
@@ -141,6 +141,9 @@ jhipster:
       host: localhost
       port: 5000
       queue-size: 512
+  audit-events:
+    retention-period: 30 # Number of days before audit events are deleted.
+
 # ===================================================================
 # Application specific properties
 # Add your own application properties here, see the ApplicationProperties class

@@ -9,7 +9,6 @@ import bcn.hackupc.filler.security.AuthoritiesConstants;
 import bcn.hackupc.filler.security.SecurityUtils;
 import bcn.hackupc.filler.service.dto.UserDTO;
 import bcn.hackupc.filler.service.util.RandomUtil;
-import bcn.hackupc.filler.web.rest.errors.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -91,7 +90,7 @@ public class UserService {
         userRepository.findOneByLogin(userDTO.getLogin().toLowerCase()).ifPresent(existingUser -> {
             boolean removed = removeNonActivatedUser(existingUser);
             if (!removed) {
-                throw new LoginAlreadyUsedException();
+                throw new UsernameAlreadyUsedException();
             }
         });
         userRepository.findOneByEmailIgnoreCase(userDTO.getEmail()).ifPresent(existingUser -> {

@@ -3,7 +3,7 @@
     "promptValues": {
       "packageName": "bcn.hackupc.filler"
     },
-    "jhipsterVersion": "6.2.0",
+    "jhipsterVersion": "6.4.1",
     "applicationType": "monolith",
     "baseName": "Backend",
     "packageName": "bcn.hackupc.filler",
@@ -21,7 +21,8 @@
     "serviceDiscoveryType": "eureka",
     "buildTool": "maven",
     "enableSwaggerCodegen": false,
-    "jwtSecretKey": "MmVmYTJhMTliYmZkMmY5Yzk4OTY0YTMzZWZkZWU1YTNlMThhNDVlMTZiNjExMDBmMzk5NDU2YjA3M2NhMDA3ZjZjM2RmMzA2NWVjNGE2OTRmZGNmMjRiNzYxYjQzM2U4NjZkYjBkN2VkNzAwMzU2MDljOGQyNWVmNGVlOGQ0YjI=",
+    "jwtSecretKey": "OWYwNDA1NjVmNTU1OWJlNzE1NGI0MWE5YjU1NDI4MWE2NzdhYmQ4MjI4ZDhmMDM2NjdlNTc4MjNiOTYwMjZhMTRmNWVkN2FmMjVkNjBmZWI0MzgzMjkwODNiNWU4N2UyZWU1YjI2ZTlmY2Q0YWI2YWU3MTY2ODFlZDRjYTUzODc=",
+    "embeddableLaunchScript": false,
     "testFrameworks": [],
     "jhiPrefix": "jhi",
     "entitySuffix": "",
