@@ -1,5 +1,5 @@
 package bcn.hackupc.filler.domain;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -52,12 +52,16 @@ public class CustomEvent implements Serializable {
     @Column(name = "repeat")
     private Boolean repeat;
 
-    @ManyToOne
-    @JsonIgnoreProperties("customEvents")
-    private User user;
-
-    @OneToMany(mappedBy = "customEvent")
+    @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JoinTable(name = "custom_event_user",
+               joinColumns = @JoinColumn(name = "custom_event_id", referencedColumnName = "id"),
+               inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
+    private Set<User> users = new HashSet<>();
+
+    @ManyToMany(mappedBy = "customEvents")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JsonIgnore
     private Set<Preference> preferences = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -186,17 +190,27 @@ public class CustomEvent implements Serializable {
         this.repeat = repeat;
     }
 
-    public User getUser() {
-        return user;
+    public Set<User> getUsers() {
+        return users;
     }
 
-    public CustomEvent user(User user) {
-        this.user = user;
+    public CustomEvent users(Set<User> users) {
+        this.users = users;
         return this;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public CustomEvent addUser(User user) {
+        this.users.add(user);
+        return this;
+    }
+
+    public CustomEvent removeUser(User user) {
+        this.users.remove(user);
+        return this;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 
     public Set<Preference> getPreferences() {
@@ -210,13 +224,13 @@ public class CustomEvent implements Serializable {
 
     public CustomEvent addPreference(Preference preference) {
         this.preferences.add(preference);
-        preference.setCustomEvent(this);
+        preference.getCustomEvents().add(this);
         return this;
     }
 
     public CustomEvent removePreference(Preference preference) {
         this.preferences.remove(preference);
-        preference.setCustomEvent(null);
+        preference.getCustomEvents().remove(this);
         return this;
     }
 

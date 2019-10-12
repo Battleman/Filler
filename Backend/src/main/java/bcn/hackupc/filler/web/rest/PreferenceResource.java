@@ -89,13 +89,18 @@ public class PreferenceResource {
      *
 
      * @param pageable the pagination information.
-
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of preferences in body.
      */
     @GetMapping("/preferences")
-    public ResponseEntity<List<PreferenceDTO>> getAllPreferences(Pageable pageable) {
+    public ResponseEntity<List<PreferenceDTO>> getAllPreferences(Pageable pageable, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get a page of Preferences");
-        Page<PreferenceDTO> page = preferenceService.findAll(pageable);
+        Page<PreferenceDTO> page;
+        if (eagerload) {
+            page = preferenceService.findAllWithEagerRelationships(pageable);
+        } else {
+            page = preferenceService.findAll(pageable);
+        }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

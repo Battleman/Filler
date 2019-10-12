@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <!--
+        Added the constraints for entity Preference.
+    -->
+    <changeSet id="20191012211231-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="preference_category_id"
+                                 baseTableName="preference"
+                                 constraintName="fk_preference_preference_category_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="preference_category"/>
+
+        <addForeignKeyConstraint baseColumnNames="preference_id"
+                                 baseTableName="preference_user"
+                                 constraintName="fk_preference_user_preference_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="preference"/>
+
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="preference_user"
+                                 constraintName="fk_preference_user_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+        
+        <addForeignKeyConstraint baseColumnNames="preference_id"
+                                 baseTableName="preference_custom_event"
+                                 constraintName="fk_preference_custom_event_preference_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="preference"/>
+
+        <addForeignKeyConstraint baseColumnNames="custom_event_id"
+                                 baseTableName="preference_custom_event"
+                                 constraintName="fk_preference_custom_event_custom_event_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="custom_event"/>
+        
+    </changeSet>
+</databaseChangeLog>

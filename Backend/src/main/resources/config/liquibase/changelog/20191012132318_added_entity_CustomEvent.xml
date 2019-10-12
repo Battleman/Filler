@@ -42,9 +42,6 @@
             <column name="repeat" type="boolean">
                 <constraints nullable="true" />
             </column>
-            <column name="user_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="custom_event" columnName="start_date" columnDataType="datetime"/>
@@ -53,6 +50,17 @@
 
     <changeSet id="20191012132318-1-relations" author="jhipster">
 
+        <createTable tableName="custom_event_user">
+            <column name="user_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="custom_event_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="custom_event_id, user_id" tableName="custom_event_user"/>
+        
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 

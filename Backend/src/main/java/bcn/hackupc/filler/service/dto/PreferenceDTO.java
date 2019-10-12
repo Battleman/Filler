@@ -1,5 +1,7 @@
 package bcn.hackupc.filler.service.dto;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -12,9 +14,11 @@ public class PreferenceDTO implements Serializable {
     private String name;
 
 
-    private Long customEventId;
+    private Long preferenceCategoryId;
 
-    private Long userId;
+    private Set<UserDTO> users = new HashSet<>();
+
+    private Set<CustomEventDTO> customEvents = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -32,20 +36,28 @@ public class PreferenceDTO implements Serializable {
         this.name = name;
     }
 
-    public Long getCustomEventId() {
-        return customEventId;
+    public Long getPreferenceCategoryId() {
+        return preferenceCategoryId;
     }
 
-    public void setCustomEventId(Long customEventId) {
-        this.customEventId = customEventId;
+    public void setPreferenceCategoryId(Long preferenceCategoryId) {
+        this.preferenceCategoryId = preferenceCategoryId;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Set<UserDTO> getUsers() {
+        return users;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUsers(Set<UserDTO> users) {
+        this.users = users;
+    }
+
+    public Set<CustomEventDTO> getCustomEvents() {
+        return customEvents;
+    }
+
+    public void setCustomEvents(Set<CustomEventDTO> customEvents) {
+        this.customEvents = customEvents;
     }
 
     @Override
@@ -74,8 +86,7 @@ public class PreferenceDTO implements Serializable {
         return "PreferenceDTO{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
-            ", customEvent=" + getCustomEventId() +
-            ", user=" + getUserId() +
+            ", preferenceCategory=" + getPreferenceCategoryId() +
             "}";
     }
 }

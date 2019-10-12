@@ -8,17 +8,15 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity {@link Preference} and its DTO {@link PreferenceDTO}.
  */
-@Mapper(componentModel = "spring", uses = {CustomEventMapper.class, UserMapper.class})
+@Mapper(componentModel = "spring", uses = {PreferenceCategoryMapper.class, UserMapper.class, CustomEventMapper.class})
 public interface PreferenceMapper extends EntityMapper<PreferenceDTO, Preference> {
 
-    @Mapping(source = "customEvent.id", target = "customEventId")
-    @Mapping(source = "user.id", target = "userId")
+    @Mapping(source = "preferenceCategory.id", target = "preferenceCategoryId")
     PreferenceDTO toDto(Preference preference);
 
-    @Mapping(source = "customEventId", target = "customEvent")
-    @Mapping(source = "userId", target = "user")
-    @Mapping(target = "preferenceCategories", ignore = true)
-    @Mapping(target = "removePreferenceCategory", ignore = true)
+    @Mapping(source = "preferenceCategoryId", target = "preferenceCategory")
+    @Mapping(target = "removeUser", ignore = true)
+    @Mapping(target = "removeCustomEvent", ignore = true)
     Preference toEntity(PreferenceDTO preferenceDTO);
 
     default Preference fromId(Long id) {

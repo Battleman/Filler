@@ -1,5 +1,4 @@
 package bcn.hackupc.filler.domain;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -27,17 +26,23 @@ public class Preference implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne
-    @JsonIgnoreProperties("preferences")
-    private CustomEvent customEvent;
+    @OneToOne
+    @JoinColumn(unique = true)
+    private PreferenceCategory preferenceCategory;
 
-    @ManyToOne
-    @JsonIgnoreProperties("preferences")
-    private User user;
-
-    @OneToMany(mappedBy = "preference")
+    @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<PreferenceCategory> preferenceCategories = new HashSet<>();
+    @JoinTable(name = "preference_user",
+               joinColumns = @JoinColumn(name = "preference_id", referencedColumnName = "id"),
+               inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
+    private Set<User> users = new HashSet<>();
+
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JoinTable(name = "preference_custom_event",
+               joinColumns = @JoinColumn(name = "preference_id", referencedColumnName = "id"),
+               inverseJoinColumns = @JoinColumn(name = "custom_event_id", referencedColumnName = "id"))
+    private Set<CustomEvent> customEvents = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -61,55 +66,65 @@ public class Preference implements Serializable {
         this.name = name;
     }
 
-    public CustomEvent getCustomEvent() {
-        return customEvent;
+    public PreferenceCategory getPreferenceCategory() {
+        return preferenceCategory;
     }
 
-    public Preference customEvent(CustomEvent customEvent) {
-        this.customEvent = customEvent;
+    public Preference preferenceCategory(PreferenceCategory preferenceCategory) {
+        this.preferenceCategory = preferenceCategory;
         return this;
     }
 
-    public void setCustomEvent(CustomEvent customEvent) {
-        this.customEvent = customEvent;
+    public void setPreferenceCategory(PreferenceCategory preferenceCategory) {
+        this.preferenceCategory = preferenceCategory;
     }
 
-    public User getUser() {
-        return user;
+    public Set<User> getUsers() {
+        return users;
     }
 
-    public Preference user(User user) {
-        this.user = user;
+    public Preference users(Set<User> users) {
+        this.users = users;
         return this;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Set<PreferenceCategory> getPreferenceCategories() {
-        return preferenceCategories;
-    }
-
-    public Preference preferenceCategories(Set<PreferenceCategory> preferenceCategories) {
-        this.preferenceCategories = preferenceCategories;
+    public Preference addUser(User user) {
+        this.users.add(user);
         return this;
     }
 
-    public Preference addPreferenceCategory(PreferenceCategory preferenceCategory) {
-        this.preferenceCategories.add(preferenceCategory);
-        preferenceCategory.setPreference(this);
+    public Preference removeUser(User user) {
+        this.users.remove(user);
         return this;
     }
 
-    public Preference removePreferenceCategory(PreferenceCategory preferenceCategory) {
-        this.preferenceCategories.remove(preferenceCategory);
-        preferenceCategory.setPreference(null);
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
+    public Set<CustomEvent> getCustomEvents() {
+        return customEvents;
+    }
+
+    public Preference customEvents(Set<CustomEvent> customEvents) {
+        this.customEvents = customEvents;
         return this;
     }
 
-    public void setPreferenceCategories(Set<PreferenceCategory> preferenceCategories) {
-        this.preferenceCategories = preferenceCategories;
+    public Preference addCustomEvent(CustomEvent customEvent) {
+        this.customEvents.add(customEvent);
+        customEvent.getPreferences().add(this);
+        return this;
+    }
+
+    public Preference removeCustomEvent(CustomEvent customEvent) {
+        this.customEvents.remove(customEvent);
+        customEvent.getPreferences().remove(this);
+        return this;
+    }
+
+    public void setCustomEvents(Set<CustomEvent> customEvents) {
+        this.customEvents = customEvents;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

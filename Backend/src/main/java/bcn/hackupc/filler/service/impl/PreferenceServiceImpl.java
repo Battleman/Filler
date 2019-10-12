@@ -61,6 +61,15 @@ public class PreferenceServiceImpl implements PreferenceService {
             .map(preferenceMapper::toDto);
     }
 
+    /**
+     * Get all the preferences with eager load of many-to-many relationships.
+     *
+     * @return the list of entities.
+     */
+    public Page<PreferenceDTO> findAllWithEagerRelationships(Pageable pageable) {
+        return preferenceRepository.findAllWithEagerRelationships(pageable).map(preferenceMapper::toDto);
+    }
+    
 
     /**
      * Get one preference by id.
@@ -72,7 +81,7 @@ public class PreferenceServiceImpl implements PreferenceService {
     @Transactional(readOnly = true)
     public Optional<PreferenceDTO> findOne(Long id) {
         log.debug("Request to get Preference : {}", id);
-        return preferenceRepository.findById(id)
+        return preferenceRepository.findOneWithEagerRelationships(id)
             .map(preferenceMapper::toDto);
     }
 

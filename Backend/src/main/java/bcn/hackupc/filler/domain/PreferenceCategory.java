@@ -1,5 +1,5 @@
 package bcn.hackupc.filler.domain;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -25,8 +25,8 @@ public class PreferenceCategory implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne
-    @JsonIgnoreProperties("preferenceCategories")
+    @OneToOne(mappedBy = "preferenceCategory")
+    @JsonIgnore
     private Preference preference;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
