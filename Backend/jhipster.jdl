@@ -1,0 +1,31 @@
+entity CustomEvent {
+	name String
+    subject String
+    price Double
+    latitude String
+    longitude String
+    startDate ZonedDateTime
+    endDate ZonedDateTime
+    description String
+    repeat Boolean
+}
+
+entity Preference{
+	name String
+}
+
+
+
+// defining multiple OneToMany relationships with comments
+relationship ManyToOne {
+	CustomEvent to User
+    Preference to CustomEvent
+    Preference to User
+}
+
+paginate * with pagination
+
+dto * with mapstruct
+
+service all with serviceImpl
+
