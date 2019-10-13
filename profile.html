@@ -255,7 +255,7 @@
 
     async function newEvent() {
       var preferences = [];
-      $('.items input:checked').each(function () {
+      $('.checkbox-menu input:checked').each(function () {
         let val = $(this).attr('value').split(":");
         preferences.push({
           preferenceType: val[0],
@@ -276,34 +276,43 @@
         endDate: calendar.view.activeEnd,
         schedule: current_events
       };
+      console.log(JSON.stringify(body))
       jQuery.ajax({
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
         'type': 'POST',
-        'url': 'http://7e3c8aec.ngrok.io/api/create-custom-events',
+        'url': 'http://f6272c35.ngrok.io/api/create-custom-events',
         'data': JSON.stringify(body),
         'dataType': 'json',
         'success': function (events) {
-          events.forEach(function (ev) {
-            try {
-              calendar.addEvent({
-                'start': ev.startDate,
-                'end': ev.endDate,
-                'title': ev.name,
-                'color': COLORS[ev.preferences[0].preferenceCategory.name]
-              })
-            } catch (e) {
+          if (events.length <= 0) {
+            alert("No event matching your desires")
+          } else {
+            events.forEach(function (ev) {
+              console.log("Adding an event:" + JSON.stringify(ev));
+              try {
+                calendar.addEvent({
+                  'start': ev.startDate,
+                  'end': ev.endDate,
+                  'title': ev.name,
+                  'color': COLORS[ev.preferences[0].preferenceCategory.name]
+                })
+              } catch (e) {
                 calendar.addEvent({
                   'start': ev.startDate,
                   'end': ev.endDate,
                   'title': ev.name,
                   'color': "#FF0000"
                 })
-            }
-          });
+              }
+            });
+          }
 
+        },
+        'error': function (e) {
+          alert("Error connecting to the server, please try again later")
         }
       });
     };
