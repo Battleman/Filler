@@ -13,6 +13,6 @@ import java.util.List;
 @Repository
 public interface CustomEventRepository extends JpaRepository<CustomEvent, Long> {
 
-    List<CustomEvent> findAllByStartDateLessThanAndEndDateGreaterThan(ZonedDateTime startDate, ZonedDateTime endDate);
+    List<CustomEvent> findAllByStartDateGreaterThanAndEndDateLessThan(ZonedDateTime startDate, ZonedDateTime endDate);
 
 }
