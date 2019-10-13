@@ -208,8 +208,15 @@
   <!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
   <script src="./assets/js/material-kit.js?v=2.0.6" type="text/javascript"></script>
   <script>
-    var calendarEl = document.getElementById('calendar');
+    const COLORS = Object({
+      "google": "#3788d8",
+      "conference": "#49f83a",
+      "art": "#b80b76",
+      "music": "#b8500b"
+    });
+    const CALENDAR_ADDRESS = "k2joi0hlfr9ijj07u6n6lru1gc@group.calendar.google.com";
 
+    var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
       plugins: ['interaction', 'dayGrid', 'timeGrid', 'list', 'googleCalendar'],
       locale: 'en-us',
@@ -219,12 +226,30 @@
         center: 'title',
         right: 'dayGridMonth,timeGridWeek,timeGridDay'
       },
+      eventClick: function (info) {
+        var eventObj = info.event;
+        if (eventObj.id == "") {
+          var new_input = {
+            start: eventObj.start,
+            end: eventObj.end,
+            title: eventObj.title,
+            color: COLORS['google'] || "#00FF00"
+          }
+          calendar.addEvent(new_input, "MyGoogleCalendar");
+          eventObj.remove()
+          calendar.render()
+        }
+        info.jsEvent.preventDefault(); // prevents browser from following link in current tab.
+      },
       googleCalendarApiKey: "AIzaSyC2y8YnKmvtdaYzRJCCnU7i8BaejiWFhdg",
       defaultDate: new Date(),
       navLinks: true, // can click day/week names to navigate views
       businessHours: true, // display business hours
       editable: true,
-      events: "k2joi0hlfr9ijj07u6n6lru1gc@group.calendar.google.com",
+      eventSources: [{
+        id: "MyGoogleCalendar",
+        googleCalendarId: CALENDAR_ADDRESS
+      }]
     });
     calendar.render();
 
@@ -238,7 +263,6 @@
         });
       });
       var current_events = [];
-      console.log(calendar.getEvents())
       calendar.getEvents().forEach(function (ev) {
         current_events.push({
           name: ev.title,
@@ -246,21 +270,43 @@
           end: ev.end
         })
       })
-      /*const result = await fetch('https://backend.com/', {
-        data: {
-          preferences: preferences,
-          startDate: new Date(),
-          endDate: calendar.view.activeEnd,
-          schedule: current_events
-        }
-      });*/
-      console.log(JSON.stringify({
+      let body = {
         preferences: preferences,
         startDate: new Date(),
         endDate: calendar.view.activeEnd,
         schedule: current_events
-      }));
-    }
+      };
+      jQuery.ajax({
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        'type': 'POST',
+        'url': 'http://7e3c8aec.ngrok.io/api/create-custom-events',
+        'data': JSON.stringify(body),
+        'dataType': 'json',
+        'success': function (events) {
+          events.forEach(function (ev) {
+            try {
+              calendar.addEvent({
+                'start': ev.startDate,
+                'end': ev.endDate,
+                'title': ev.name,
+                'color': COLORS[ev.preferences[0].preferenceCategory.name]
+              })
+            } catch (e) {
+                calendar.addEvent({
+                  'start': ev.startDate,
+                  'end': ev.endDate,
+                  'title': ev.name,
+                  'color': "#FF0000"
+                })
+            }
+          });
+
+        }
+      });
+    };
   </script>
   <script type="text/javascript">
     $(".checkbox-menu").on("change", "input[type='checkbox']", function () {
