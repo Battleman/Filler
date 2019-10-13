@@ -4,6 +4,7 @@ import bcn.hackupc.filler.service.CustomEventService;
 import bcn.hackupc.filler.service.dto.CustomEventDTO;
 import bcn.hackupc.filler.web.rest.errors.BadRequestAlertException;
 import bcn.hackupc.filler.web.rest.request.CustomEventRequest;
+import bcn.hackupc.filler.web.rest.request.Preference;
 import bcn.hackupc.filler.web.rest.request.Schedule;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -11,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -121,6 +123,15 @@ public class CustomEventResource {
                     customEventDTOS.remove(i);
                     i--;
                 }
+            }
+        }
+
+        for (int i = 0; i < customEventDTOS.size(); i++) {
+            CustomEventDTO customEventDTO = customEventDTOS.get(i);
+            if(customEventDTO.getPreferences().stream().noneMatch(p -> customEventRequest.getPreferences().stream().anyMatch(pp -> pp.getPreference().equals(p.getName()))))
+            {
+                customEventDTOS.remove(i);
+                i--;
             }
         }
 
