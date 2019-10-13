@@ -1,18 +1,20 @@
 package bcn.hackupc.filler.service.impl;
 
-import bcn.hackupc.filler.service.PreferenceService;
 import bcn.hackupc.filler.domain.Preference;
+import bcn.hackupc.filler.domain.PreferenceCategory;
+import bcn.hackupc.filler.repository.PreferenceCategoryRepository;
 import bcn.hackupc.filler.repository.PreferenceRepository;
+import bcn.hackupc.filler.service.PreferenceService;
 import bcn.hackupc.filler.service.dto.PreferenceDTO;
 import bcn.hackupc.filler.service.mapper.PreferenceMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import java.util.Optional;
 
 /**
@@ -26,10 +28,13 @@ public class PreferenceServiceImpl implements PreferenceService {
 
     private final PreferenceRepository preferenceRepository;
 
+    private final PreferenceCategoryRepository preferenceCategoryRepository;
+
     private final PreferenceMapper preferenceMapper;
 
-    public PreferenceServiceImpl(PreferenceRepository preferenceRepository, PreferenceMapper preferenceMapper) {
+    public PreferenceServiceImpl(PreferenceRepository preferenceRepository, PreferenceCategoryRepository preferenceCategoryRepository, PreferenceMapper preferenceMapper) {
         this.preferenceRepository = preferenceRepository;
+        this.preferenceCategoryRepository = preferenceCategoryRepository;
         this.preferenceMapper = preferenceMapper;
     }
 
@@ -69,7 +74,7 @@ public class PreferenceServiceImpl implements PreferenceService {
     public Page<PreferenceDTO> findAllWithEagerRelationships(Pageable pageable) {
         return preferenceRepository.findAllWithEagerRelationships(pageable).map(preferenceMapper::toDto);
     }
-    
+
 
     /**
      * Get one preference by id.
@@ -95,4 +100,47 @@ public class PreferenceServiceImpl implements PreferenceService {
         log.debug("Request to delete Preference : {}", id);
         preferenceRepository.deleteById(id);
     }
+
+//    @PostConstruct
+//    public void fillDatabase() {
+//        PreferenceCategory preferenceCategoryMusic = new PreferenceCategory();
+//        preferenceCategoryMusic.setName("Music");
+//        preferenceCategoryMusic = preferenceCategoryRepository.save(preferenceCategoryMusic);
+//        PreferenceCategory preferenceCategoryArt = new PreferenceCategory();
+//        preferenceCategoryArt.setName("Art");
+//        preferenceCategoryArt = preferenceCategoryRepository.save(preferenceCategoryArt);
+//        PreferenceCategory preferenceCategoryConference = new PreferenceCategory();
+//        preferenceCategoryConference.setName("Conference");
+//        preferenceCategoryConference = preferenceCategoryRepository.save(preferenceCategoryConference);
+//
+//        Preference preferenceRock = new Preference();
+//        preferenceRock.setName("rock");
+//        preferenceRock.setPreferenceCategory(preferenceCategoryMusic);
+//        Preference preferencemetal = new Preference();
+//        preferencemetal.setName("metal");
+//        preferencemetal.setPreferenceCategory(preferenceCategoryMusic);
+//        Preference preferencejazz = new Preference();
+//        preferencejazz.setName("jazz");
+//        preferencejazz.setPreferenceCategory(preferenceCategoryMusic);
+//        Preference preferencerenaissance = new Preference();
+//        preferencerenaissance.setName("renaissance");
+//        preferencerenaissance.setPreferenceCategory(preferenceCategoryArt);
+//        Preference preferenceai = new Preference();
+//        preferenceai.setName("ai");
+//        preferenceai.setPreferenceCategory(preferenceCategoryConference);
+//        Preference preferencedatabase = new Preference();
+//        preferencedatabase.setName("database");
+//        preferencedatabase.setPreferenceCategory(preferenceCategoryConference);
+//        Preference preferenceclimate = new Preference();
+//        preferenceclimate.setName("climate");
+//        preferenceclimate.setPreferenceCategory(preferenceCategoryConference);
+//
+//        preferenceRepository.saveAndFlush(preferenceRock);
+//        preferenceRepository.saveAndFlush(preferencemetal);
+//        preferenceRepository.saveAndFlush(preferencejazz);
+//        preferenceRepository.saveAndFlush(preferencerenaissance);
+//        preferenceRepository.saveAndFlush(preferenceai);
+//        preferenceRepository.saveAndFlush(preferencedatabase);
+//        preferenceRepository.saveAndFlush(preferenceclimate);
+//    }
 }

@@ -1,11 +1,12 @@
 package bcn.hackupc.filler.domain;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A PreferenceCategory.
@@ -25,9 +26,9 @@ public class PreferenceCategory implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @OneToOne(mappedBy = "preferenceCategory")
-    @JsonIgnore
-    private Preference preference;
+    @OneToMany(mappedBy = "preferenceCategory")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Preference> preferences = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -51,17 +52,29 @@ public class PreferenceCategory implements Serializable {
         this.name = name;
     }
 
-    public Preference getPreference() {
-        return preference;
+    public Set<Preference> getPreferences() {
+        return preferences;
     }
 
-    public PreferenceCategory preference(Preference preference) {
-        this.preference = preference;
+    public PreferenceCategory preferences(Set<Preference> preferences) {
+        this.preferences = preferences;
         return this;
     }
 
-    public void setPreference(Preference preference) {
-        this.preference = preference;
+    public PreferenceCategory addPreference(Preference preference) {
+        this.preferences.add(preference);
+        preference.setPreferenceCategory(this);
+        return this;
+    }
+
+    public PreferenceCategory removePreference(Preference preference) {
+        this.preferences.remove(preference);
+        preference.setPreferenceCategory(null);
+        return this;
+    }
+
+    public void setPreferences(Set<Preference> preferences) {
+        this.preferences = preferences;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

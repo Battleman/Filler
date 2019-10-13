@@ -92,7 +92,7 @@ public class CustomEventServiceImpl implements CustomEventService {
 
     @Override
     public List<CustomEventDTO> findAllBetwwen(ZonedDateTime startDate, ZonedDateTime endDate) {
-        return customEventRepository.findAllByStartDateLessThanAndEndDateGreaterThan(startDate, endDate).stream()
+        return customEventRepository.findAllByStartDateGreaterThanAndEndDateLessThan(startDate, endDate).stream()
             .map(customEventMapper::toDto).collect(Collectors.toList());
     }
 }

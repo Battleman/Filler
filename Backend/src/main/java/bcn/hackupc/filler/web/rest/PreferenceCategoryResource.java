@@ -96,11 +96,6 @@ public class PreferenceCategoryResource {
      */
     @GetMapping("/preference-categories")
     public ResponseEntity<List<PreferenceCategoryDTO>> getAllPreferenceCategories(Pageable pageable, @RequestParam(required = false) String filter) {
-        if ("preference-is-null".equals(filter)) {
-            log.debug("REST request to get all PreferenceCategorys where preference is null");
-            return new ResponseEntity<>(preferenceCategoryService.findAllWherePreferenceIsNull(),
-                    HttpStatus.OK);
-        }
         log.debug("REST request to get a page of PreferenceCategories");
         Page<PreferenceCategoryDTO> page = preferenceCategoryService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);

@@ -19,7 +19,7 @@
                 <constraints nullable="true" />
             </column>
             <column name="preference_category_id" type="bigint">
-                <constraints unique="true" nullable="true" uniqueConstraintName="ux_preference_preference_category_id" />
+                <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>

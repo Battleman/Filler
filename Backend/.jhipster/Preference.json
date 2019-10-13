@@ -8,12 +8,11 @@
     ],
     "relationships": [
         {
-            "relationshipType": "one-to-one",
+            "relationshipType": "many-to-one",
             "otherEntityName": "preferenceCategory",
             "otherEntityRelationshipName": "preference",
             "relationshipName": "preferenceCategory",
-            "otherEntityField": "id",
-            "ownerSide": true
+            "otherEntityField": "id"
         },
         {
             "relationshipType": "many-to-many",

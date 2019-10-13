@@ -28,13 +28,6 @@ public interface PreferenceCategoryService {
      * @return the list of entities.
      */
     Page<PreferenceCategoryDTO> findAll(Pageable pageable);
-    /**
-     * Get all the PreferenceCategoryDTO where Preference is {@code null}.
-     *
-     * @return the list of entities.
-     */
-    List<PreferenceCategoryDTO> findAllWherePreferenceIsNull();
-
 
     /**
      * Get the "id" preferenceCategory.

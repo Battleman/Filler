@@ -12,7 +12,8 @@ import org.mapstruct.*;
 public interface PreferenceCategoryMapper extends EntityMapper<PreferenceCategoryDTO, PreferenceCategory> {
 
 
-    @Mapping(target = "preference", ignore = true)
+    @Mapping(target = "preferences", ignore = true)
+    @Mapping(target = "removePreference", ignore = true)
     PreferenceCategory toEntity(PreferenceCategoryDTO preferenceCategoryDTO);
 
     default PreferenceCategory fromId(Long id) {
