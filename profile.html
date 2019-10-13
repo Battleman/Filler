@@ -97,16 +97,24 @@
                   class="img-raised rounded-circle img-fluid">
               </div>
               <div class="name">
-                <h3 class="title">Christian Louboutin</h3>
+                <h3 class="title">John Doe</h3>
               </div>
             </div>
           </div>
         </div>
         <div class="tab-content tab-space">
+
           <div class="row justify-content-center">
-            <div id="list1" class="dropdown-check-list" tabindex="100" onclick="dropdown('list1')">
-              <span class="anchor">Music</span>
-              <ul id="items" class="items">
+            <h3>Preferences</h3>
+          </div>
+          <div class="row justify-content-center">
+            <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="true">
+                Music
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu checkbox-menu allow-focus" aria-labelledby="dropdownMenu1">
                 <li><label><input type="checkbox" value="music:rock" /> Rock </label></li>
                 <li><label><input type="checkbox" value="music:metal" /> Metal </label></li>
                 <li><label><input type="checkbox" value="music:jazz" /> Jazz</label></li>
@@ -115,18 +123,13 @@
                 <li><label><input type="checkbox" value="music:rap" /> Rap </label></li>
               </ul>
             </div>
-            <div id="list2" class="dropdown-check-list" tabindex="100" onclick="dropdown('list2')">
-              <span class="anchor">Art</span>
-              <ul class="items">
-                <li><label><input type="checkbox" value="art:contemporary" /> Contemporary </label></li>
-                <li><label><input type="checkbox" value="art:modern" /> Modern </label></li>
-                <li><label><input type="checkbox" value="art:abstract" /> Abstract</label></li>
-                <li><label><input type="checkbox" value="art:renaissance" /> Renaissance </label> </li>
-              </ul>
-            </div>
-            <div id="list3" class="dropdown-check-list" tabindex="100" onclick="dropdown('list3')">
-              <span class="anchor">Conferences</span>
-              <ul class="items">
+            <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="true">
+                Conferences
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu checkbox-menu allow-focus" aria-labelledby="dropdownMenu1">
                 <li><label><input type="checkbox" value="conference:ai" /> Artificial Intelligence </label></li>
                 <li><label><input type="checkbox" value="conference:blockchain" /> Blockchain </label></li>
                 <li><label><input type="checkbox" value="conference:climate" /> Climate</label></li>
@@ -135,11 +138,24 @@
                 <li><label><input type="checkbox" value="conference:database" /> Database </label></li>
               </ul>
             </div>
+            <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="true">
+                Art
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu checkbox-menu allow-focus" aria-labelledby="dropdownMenu1">
+                <li><label><input type="checkbox" value="art:contemporary" /> Contemporary </label></li>
+                <li><label><input type="checkbox" value="art:modern" /> Modern </label></li>
+                <li><label><input type="checkbox" value="art:abstract" /> Abstract</label></li>
+                <li><label><input type="checkbox" value="art:renaissance" /> Renaissance </label> </li>
+              </ul>
+            </div>
           </div>
           <div class="row justify-content-center">
             <button class="fc-button fc-button-primary" onclick="newEvent()">Fill it!</button>
           </div>
-          <div id='calendar'></div>
+          <div id='calendar' style="padding-top: 80px"></div>
         </div>
       </div>
     </div>
@@ -231,37 +247,28 @@
         })
       })
       /*const result = await fetch('https://backend.com/', {
-        data: JSON({
+        data: {
           preferences: preferences,
           startDate: new Date(),
-          endDate: calendar.view.activeEnd
+          endDate: calendar.view.activeEnd,
           schedule: current_events
-        })
+        }
       });*/
       console.log(JSON.stringify({
         preferences: preferences,
-        period: period,
+        startDate: new Date(),
+        endDate: calendar.view.activeEnd,
         schedule: current_events
       }));
     }
   </script>
   <script type="text/javascript">
-    function dropdown(id) {
-      var checkList = document.getElementById(id);
-      var items = checkList.getElementsByClassName('items')[0];
-      if (items.classList.contains('visible')) {
-        items.classList.remove('visible');
-        items.style.display = "none";
-      } else {
-        items.classList.add('visible');
-        items.style.display = "block";
-      }
-
-
-      items.onblur = function (evt) {
-        items.classList.remove('visible');
-      }
-    }
+    $(".checkbox-menu").on("change", "input[type='checkbox']", function () {
+      $(this).closest("li").toggleClass("active", this.checked);
+    });
+    $(document).on('click', '.allow-focus', function (e) {
+      e.stopPropagation();
+    });
   </script>
 
 </body>
