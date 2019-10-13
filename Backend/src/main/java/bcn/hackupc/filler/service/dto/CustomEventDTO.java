@@ -1,4 +1,6 @@
 package bcn.hackupc.filler.service.dto;
+import bcn.hackupc.filler.domain.Preference;
+
 import java.time.ZonedDateTime;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -32,6 +34,8 @@ public class CustomEventDTO implements Serializable {
 
 
     private Set<UserDTO> users = new HashSet<>();
+
+    private Set<Preference> preferences = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -121,6 +125,14 @@ public class CustomEventDTO implements Serializable {
         this.users = users;
     }
 
+    public Set<Preference> getPreferences() {
+        return preferences;
+    }
+
+    public void setPreferences(Set<Preference> preferences) {
+        this.preferences = preferences;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -145,16 +157,18 @@ public class CustomEventDTO implements Serializable {
     @Override
     public String toString() {
         return "CustomEventDTO{" +
-            "id=" + getId() +
-            ", name='" + getName() + "'" +
-            ", subject='" + getSubject() + "'" +
-            ", price=" + getPrice() +
-            ", latitude='" + getLatitude() + "'" +
-            ", longitude='" + getLongitude() + "'" +
-            ", startDate='" + getStartDate() + "'" +
-            ", endDate='" + getEndDate() + "'" +
-            ", description='" + getDescription() + "'" +
-            ", repeat='" + isRepeat() + "'" +
-            "}";
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", subject='" + subject + '\'' +
+            ", price=" + price +
+            ", latitude='" + latitude + '\'' +
+            ", longitude='" + longitude + '\'' +
+            ", startDate=" + startDate +
+            ", endDate=" + endDate +
+            ", description='" + description + '\'' +
+            ", repeat=" + repeat +
+            ", users=" + users +
+            ", preferences=" + preferences +
+            '}';
     }
 }

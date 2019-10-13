@@ -59,9 +59,11 @@ public class CustomEvent implements Serializable {
                inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
     private Set<User> users = new HashSet<>();
 
-    @ManyToMany(mappedBy = "customEvents")
+    @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JsonIgnore
+    @JoinTable(name = "preference_custom_event",
+        joinColumns = @JoinColumn(name = "preference_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "custom_event_id", referencedColumnName = "id"))
     private Set<Preference> preferences = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

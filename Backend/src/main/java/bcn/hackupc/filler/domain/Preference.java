@@ -1,4 +1,5 @@
 package bcn.hackupc.filler.domain;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -38,11 +39,9 @@ public class Preference implements Serializable {
                inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
     private Set<User> users = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "preferences")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "preference_custom_event",
-               joinColumns = @JoinColumn(name = "preference_id", referencedColumnName = "id"),
-               inverseJoinColumns = @JoinColumn(name = "custom_event_id", referencedColumnName = "id"))
+    @JsonIgnore
     private Set<CustomEvent> customEvents = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

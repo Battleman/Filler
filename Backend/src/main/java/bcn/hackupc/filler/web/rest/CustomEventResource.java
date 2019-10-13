@@ -121,7 +121,6 @@ public class CustomEventResource {
                     customEventDTOS.remove(i);
                     i--;
                 }
-
             }
         }
 

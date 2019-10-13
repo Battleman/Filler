@@ -13,8 +13,6 @@ public interface CustomEventMapper extends EntityMapper<CustomEventDTO, CustomEv
 
 
     @Mapping(target = "removeUser", ignore = true)
-    @Mapping(target = "preferences", ignore = true)
-    @Mapping(target = "removePreference", ignore = true)
     CustomEvent toEntity(CustomEventDTO customEventDTO);
 
     default CustomEvent fromId(Long id) {
